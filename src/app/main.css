@@ -1,0 +1,81 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todoApp {
+    width: 70%;
+    height: 80%;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(66, 65, 65);
+}
+
+.todoHeader {
+    background-color: #009688;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    color: white;
+}
+
+.todoBody {
+    padding: 20px;
+}
+
+.createTodo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todoList {
+    margin-top: 30px;
+}
+
+.createTodo input {
+    width: 70%;
+}
+
+.createTodo button {
+    width: 25%;
+}
+
+.todoItem {
+    display: flex;
+    align-items: center;
+    padding: 20px 0px;
+}
+
+.todoItem:nth-child(odd) {
+    background-color: rgb(230, 227, 227);
+}
+
+.todoCheckbox {
+    width: 10%;
+}
+
+.todoName {
+    width: 70%;
+}
+
+.actions {
+    width: 20%;
+}
+
+input, button {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0 10px;
+}
