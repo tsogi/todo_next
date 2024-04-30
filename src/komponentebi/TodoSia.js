@@ -2,24 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-export default function TodoSia(){
-    const [todosState, setTodosState] = useState([]);
-    const [apiUrl, setApiUrl] = useState("https://app-servers.io/api/todos")
-
+export default function TodoSia({ apiUrl, todosList, reloadTodosList }){
     useEffect(async () => {
-        await refreshTodosState();
+        await reloadTodosList();
     }, []);
 
-    async function refreshTodosState(){
-        let response = await fetch(apiUrl);
-        let todos = await response.json();
-        todos = getUncompletedTodos(todos);
-        setTodosState(todos);
-    }
-
-    function getUncompletedTodos(todos){
-        return todos;
-    }
 
     async function deleteTodo(todoId){
         await fetch(`${apiUrl}/delete/${todoId}`, 
@@ -28,15 +15,27 @@ export default function TodoSia(){
             }
         )
 
-        await refreshTodosState();
+        await reloadTodosList();
+    }
+
+    async function handleCheckboxClick(isChecked, todoId){
+        await fetch(`${apiUrl}/edit/${todoId}`, 
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: isChecked }),
+            }
+        )
+
+        await reloadTodosList();
     }
 
     return <div class="todoList">
         {
-            todosState.map((todo) => {
+            todosList.map((todo) => {
                 return <div class="todoItem">
                         <div class="todoCheckbox">
-                            <input type="checkbox" data-todoid="762" />
+                            <input checked={todo.completed ? true : false} onChange={(event) => { handleCheckboxClick(event.target.checked, todo.id) }} type="checkbox" data-todoid="762" />
                         </div>
                         <div class="todoName">{ todo.task }</div>
                         <div class="actions">
