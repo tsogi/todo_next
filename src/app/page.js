@@ -4,14 +4,15 @@ import "./main.css";
 import TodoSia from "../komponentebi/TodoSia";
 import { useState } from "react";
 import CreateTodo from "@/komponentebi/CreateTodo";
+import { getTodosFromBackend } from "@/services/data";
 
-export default function Home() {
-  const [apiUrl, setApiUrl] = useState("https://app-servers.io/api/todos");
+export default function Home(){
+  const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   const [todosList, setTodosList] = useState([]);
 
   async function reloadTodosList(){
-      let response = await fetch(apiUrl);
-      let todos = await response.json();
+      let todos = await getTodosFromBackend(apiUrl);
+
       setTodosList(todos);
   }
 

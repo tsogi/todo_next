@@ -1,32 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { deleteTodoOnBackend, editIsChecked } from "@/services/data";
 
 export default function TodoSia({ apiUrl, todosList, reloadTodosList }){
     useEffect(async () => {
         await reloadTodosList();
     }, []);
 
-
     async function deleteTodo(todoId){
-        await fetch(`${apiUrl}/delete/${todoId}`, 
-            {
-                method: 'POST',
-            }
-        )
-
+        await deleteTodoOnBackend(apiUrl, todoId);
         await reloadTodosList();
     }
 
     async function handleCheckboxClick(isChecked, todoId){
-        await fetch(`${apiUrl}/edit/${todoId}`, 
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ completed: isChecked }),
-            }
-        )
-
+        await editIsChecked(apiUrl, todoId, isChecked);
         await reloadTodosList();
     }
 
