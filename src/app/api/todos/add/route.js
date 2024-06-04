@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}`;
 
 export async function POST(request) {
@@ -18,6 +19,5 @@ export async function POST(request) {
     await client.close();
 
     // 3. Return response "Todo created successfully"
-   
     return Response.json(result);
 }
