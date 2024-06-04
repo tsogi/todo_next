@@ -1,13 +1,13 @@
 let localServerUrl = process.env.NEXT_PUBLIC_LOCAL_BACKEND_URL; // http://localhost:3000/api/todos
 
 export async function getTodosFromBackend(){
-    let response = await fetch(`${localServerUrl}/getAllTodos`);
+    let response = await fetch(`${localServerUrl}/getAllTodos`); // http://localhost:3000/api/todos/getAllTodos
     let todos = await response.json();
 
     return todos;
 }
 
-export async function createTodoOnBackend(apiUrl, inputValue){
+export async function createTodoOnBackend(inputValue){
     await fetch(`${localServerUrl}/add`, 
         {
             method: 'POST',
@@ -17,7 +17,7 @@ export async function createTodoOnBackend(apiUrl, inputValue){
     )
 }
 
-export async function deleteTodoOnBackend(apiUrl, todoId){
+export async function deleteTodoOnBackend(todoId){
     await fetch(`${localServerUrl}/delete/${todoId}`, 
         {
             method: 'POST',
@@ -25,7 +25,7 @@ export async function deleteTodoOnBackend(apiUrl, todoId){
     )
 }
 
-export async function editIsChecked(apiUrl, todoId, isChecked){
+export async function editIsChecked(todoId, isChecked){
     await fetch(`${localServerUrl}/edit/${todoId}`, 
         {
             method: 'POST',

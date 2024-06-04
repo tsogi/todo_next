@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 import { deleteTodoOnBackend, editIsChecked } from "@/services/data";
 
-export default function TodoSia({ apiUrl, todosList, reloadTodosList }){
+export default function TodoSia({ todosList, reloadTodosList }){
     useEffect(async () => {
         await reloadTodosList();
     }, []);
 
     async function deleteTodo(todoId){
-        await deleteTodoOnBackend(apiUrl, todoId);
+        await deleteTodoOnBackend(todoId);
         await reloadTodosList();
     }
 
     async function handleCheckboxClick(isChecked, todoId){
-        await editIsChecked(apiUrl, todoId, isChecked);
+        await editIsChecked(todoId, isChecked);
         await reloadTodosList();
     }
 
