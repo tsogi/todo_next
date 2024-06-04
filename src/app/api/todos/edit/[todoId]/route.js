@@ -1,7 +1,5 @@
-import { MongoClient, ObjectId } from "mongodb";
-
-// MongoDB connection URI
-const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}`;
+import { ObjectId } from "mongodb";
+import { todos } from "@/services/mongo";
 
 export async function POST(req, { params }) {
     const { todoId } = params; // Extract todoId from the URL parameters
@@ -11,12 +9,6 @@ export async function POST(req, { params }) {
     }
 
     const { completed } = await req.json(); // Extract the completion state from the request body
-
-    const client = new MongoClient(uri);
-
-    await client.connect();
-    const database = client.db("todo_app");
-    const todos = database.collection("todos");
 
     const result = await todos.updateOne(
         { _id: new ObjectId(todoId) },
